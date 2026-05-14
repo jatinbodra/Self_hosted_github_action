@@ -1,0 +1,64 @@
+# Workflow template — fully self-hosted deploy.
+#
+# Every step runs on YOUR machine (zero GitHub Actions minutes consumed).
+# Copy to .github/workflows/deploy.yml in your project, adjust the install
+# + deploy commands to match your stack.
+#
+# Trigger: every push to main, or manual dispatch.
+
+name: 🚀 Deploy (self-hosted)
+
+on:
+  push:
+    branches: [main]
+    paths-ignore:
+      - '**.md'
+      - 'docs/**'
+  workflow_dispatch: {}
+
+concurrency:
+  group: deploy-production
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    name: Build + Deploy
+    runs-on: self-hosted   # <— this is the magic line; uses your installed runner
+    timeout-minutes: 30
+
+    steps:
+      - name: 📦 Checkout
+        uses: actions/checkout@v4
+
+      - name: 🧰 Print environment
+        run: |
+          echo "Runner: $(hostname)"
+          node --version || true
+          npm --version || true
+          git --version
+
+      - name: 📥 Install deps
+        run: |
+          # Adjust to match your project structure.
+          # Example for a monorepo with REST_API + Web_Portal:
+          # cd REST_API && npm ci
+          # cd ../Web_Portal && npm ci
+          echo "Replace this with your install commands"
+
+      - name: 🧪 Lint + test
+        run: |
+          # Cheap gate before deploy — fail fast.
+          # cd REST_API && npm run lint && npm test
+          # cd ../Web_Portal && npm run typecheck && npm run lint
+          echo "Replace this with your check commands"
+
+      - name: 🏗 Build
+        run: |
+          # cd Web_Portal && npm run build
+          echo "Replace this with your build command"
+
+      - name: 🚀 Restart services
+        run: |
+          # pm2 reload all
+          # or: sudo systemctl reload nginx
+          echo "Replace this with your restart command"
