@@ -1,4 +1,4 @@
-# self-hosted-runner-kit
+# Self_hosted_github_action
 
 One script. Any project. Zero GitHub Actions minutes.
 
@@ -21,8 +21,8 @@ A drop-in installer that turns any always-on Linux box (your EC2, your VPS, a Ra
 On the machine you want to host the runner (Ubuntu / Debian, x86_64):
 
 ```bash
-git clone https://github.com/jatinbodra/self-hosted-runner-kit
-cd self-hosted-runner-kit/scripts
+git clone https://github.com/jatinbodra/Self_hosted_github_action
+cd Self_hosted_github_action/scripts
 
 # Get a registration token from:
 #   GitHub → your repo → Settings → Actions → Runners → New self-hosted runner
